@@ -1,0 +1,25 @@
+import cv2
+
+image = cv2.imread('example.jpg')
+if image is None:
+    print("Error: Image not found.")
+    exit()
+
+annotated = image.copy()
+
+cv2.rectangle(annotated, (50, 50), (250, 200), (0, 255, 0), 2)
+cv2.putText(annotated, "Rectangle", (50, 45), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+cv2.circle(annotated, (400, 150), 75, (255, 0, 0), 2)
+cv2.putText(annotated, "Circle", (370, 140), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
+
+cv2.line(annotated, (100, 300), (300, 300), (0, 0, 255), 2)
+cv2.putText(annotated, "Line (200px)", (100, 290), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+
+cv2.putText(annotated, f"Width: {image.shape[1]} px", (10, image.shape[0] - 40), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+cv2.putText(annotated, f"Height: {image.shape[0]} px", (10, image.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+
+cv2.imshow("Annotated Image", annotated)
+cv2.imwrite("annotated_output.jpg", annotated)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
