@@ -1,0 +1,38 @@
+import cv2
+
+# Load the image
+image = cv2.imread('example.jpg')
+
+# Check if the image loaded properly
+if image is None:
+    print("Error: Image not found.")
+    exit()
+
+# Show original image
+cv2.imshow("Original Image", image)
+
+# Convert to grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+cv2.imshow("Grayscale", gray)
+
+# Convert to HSV
+hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+cv2.imshow("HSV", hsv)
+
+# Convert to LAB
+lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+cv2.imshow("LAB", lab)
+
+# Crop the image (e.g., crop center portion)
+height, width = image.shape[:2]
+start_row, start_col = int(height * 0.25), int(width * 0.25)
+end_row, end_col = int(height * 0.75), int(width * 0.75)
+cropped = image[start_row:end_row, start_col:end_col]
+cv2.imshow("Cropped Image", cropped)
+
+# Save cropped image
+cv2.imwrite("cropped_output.jpg", cropped)
+
+# Wait and clean up
+cv2.waitKey(0)
+cv2.destroyAllWindows()
