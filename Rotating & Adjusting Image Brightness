@@ -1,0 +1,26 @@
+import cv2
+import numpy as np
+
+image = cv2.imread('example.jpg')
+if image is None:
+    print("Error: Image not found.")
+    exit()
+
+(h, w) = image.shape[:2]
+center = (w // 2, h // 2)
+angle = 45
+scale = 1.0
+rotation_matrix = cv2.getRotationMatrix2D(center, angle, scale)
+rotated_image = cv2.warpAffine(image, rotation_matrix, (w, h))
+cv2.imshow("Rotated Image", rotated_image)
+
+brightness_value = 50
+bright_image = cv2.convertScaleAbs(image, alpha=1, beta=brightness_value)
+cv2.imshow("Brightened Image", bright_image)
+
+cv2.imwrite("rotated_output.jpg", rotated_image)
+cv2.imwrite("brightened_output.jpg", bright_image)
+
+cv2.imshow("Original Image", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
