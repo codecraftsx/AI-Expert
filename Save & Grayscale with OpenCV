@@ -1,0 +1,28 @@
+import cv2
+
+# Load the image
+image = cv2.imread('example.jpg')
+
+# Check if image was loaded successfully
+if image is None:
+    print("Error: Image not found or path is incorrect.")
+    exit()
+
+# Convert to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Save the grayscale image
+cv2.imwrite('example_gray.jpg', gray_image)
+
+# Resize window (optional – just affects the display window size, not image size)
+cv2.namedWindow('Grayscale Image', cv2.WINDOW_NORMAL)
+cv2.resizeWindow('Grayscale Image', 800, 500)
+
+# Show the grayscale image
+cv2.imshow('Grayscale Image', gray_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# Print properties
+print(f"Original Image Dimensions: {image.shape}")      # (height, width, channels)
+print(f"Grayscale Image Dimensions: {gray_image.shape}")  # (height, width)
