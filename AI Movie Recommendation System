@@ -1,0 +1,39 @@
+import random
+from colorama import Fore, Style, init
+from textblob import TextBlob
+
+init(autoreset=True)
+
+# Sample movie data (title + overview)
+movies = [
+    {"title": "The Matrix", "overview": "A computer hacker learns about the true nature of reality and his role in the war against its controllers."},
+    {"title": "The Pursuit of Happyness", "overview": "A struggling salesman takes custody of his son as he's poised to begin a life-changing professional career."},
+    {"title": "Joker", "overview": "A mentally troubled comedian descends into madness and becomes a symbol of chaos in Gotham City."},
+    {"title": "WALL-E", "overview": "In a future where Earth is abandoned, a small robot discovers love and hope among the stars."},
+    {"title": "Inception", "overview": "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO."}
+]
+
+# Ask user's name
+user_name = input(Fore.MAGENTA + "Welcome! What's your name? " + Style.RESET_ALL).strip()
+if not user_name:
+    user_name = "Movie Lover"
+
+print(f"\n{Fore.CYAN}🎬 Hello {user_name}, here are your AI-generated movie recommendations:\n")
+
+# Function to get sentiment type and emoji
+def analyze_sentiment(text):
+    polarity = TextBlob(text).sentiment.polarity
+    if polarity > 0.25:
+        return polarity, "Positive", Fore.GREEN, "😊"
+    elif polarity < -0.25:
+        return polarity, "Negative", Fore.RED, "😢"
+    else:
+        return polarity, "Neutral", Fore.YELLOW, "😐"
+
+# Display recommendations
+for i, movie in enumerate(movies, start=1):
+    polarity, sentiment_type, color, emoji = analyze_sentiment(movie["overview"])
+    print(f"{Fore.CYAN}{i}. 🎥 {movie['title']}")
+    print(f"{color}   → Sentiment: {sentiment_type} {emoji} (Polarity: {polarity:.2f}){Style.RESET_ALL}")
+    print()
+
